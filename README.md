@@ -1,6 +1,6 @@
-# Photo Processor
+# Smart Crop
 
-A Python script that processes photos to make them square (or custom ratio) and face-centered. It uses MTCNN for accurate face detection and handles EXIF orientation data.
+A Python tool that intelligently crops photos to any aspect ratio while preserving the most important parts of the image. It uses MTCNN for accurate face detection and automatically centers the crop on detected faces, making it perfect for group photos and portraits.
 
 ## Features
 
@@ -10,7 +10,7 @@ A Python script that processes photos to make them square (or custom ratio) and 
 - 📐 Custom aspect ratio support (e.g., 16:9, 4:3)
 - ⚡ Multi-processing for faster processing
 - 💾 Preserves EXIF data in output images
-- 🎯 Centers crop on detected faces
+- 🎯 Smart face-based centering
 - 🔍 Visual face detection debugging
 
 ## Requirements
@@ -64,6 +64,33 @@ Process images with all options:
 ```bash
 python crop.py --input-dir my_photos --output-dir processed_photos --ratio 16:9 --show-faces --workers 4 --overwrite
 ```
+
+## How it Works
+
+### Face Detection and Centering
+
+The tool uses MTCNN (Multi-task Cascaded Convolutional Networks) for accurate face detection. When processing an image:
+
+1. Detects all faces in the image with high confidence (95% threshold)
+2. For multiple faces:
+   - Calculates the center point of all detected faces
+   - Centers the crop on this average position
+   - Ensures all faces are included in the final crop
+3. For single faces:
+   - Centers the crop on the detected face
+4. If no faces are detected:
+   - Falls back to center crop of the image
+
+This intelligent centering ensures that:
+- Group photos keep all faces in frame
+- Portraits are properly centered on the subject
+- Landscape photos maintain their composition when no faces are present
+
+### Performance Optimization
+
+- Images are automatically resized for faster face detection while maintaining accuracy
+- Multi-processing support for batch processing
+- Skips existing files by default to save time
 
 ## Directory Structure
 
