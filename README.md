@@ -1,17 +1,39 @@
 # Smart Crop
 
-A Python tool that intelligently crops photos to any aspect ratio while preserving the most important parts of the image. It uses MTCNN for accurate face detection and automatically centers the crop on detected faces, making it perfect for group photos and portraits.
+A Python tool for batch processing photos that intelligently crops them to any aspect ratio while preserving the most important parts of each image. Perfect for processing large collections of photos, it uses MTCNN for accurate face detection and automatically centers the crop on detected faces, making it ideal for group photos and portraits.
 
 ## Features
 
-- 📸 Process multiple images in parallel
+- 📸 Batch process multiple images in parallel
 - 👤 Accurate face detection using MTCNN
 - 🔄 Automatic EXIF orientation correction
 - 📐 Custom aspect ratio support (e.g., 16:9, 4:3)
-- ⚡ Multi-processing for faster processing
+- ⚡ Multi-processing for faster batch processing
 - 💾 Preserves EXIF data in output images
 - 🎯 Smart face-based centering
 - 🔍 Visual face detection debugging
+- ⏱️ Skip existing files to save time
+
+## Visual Demonstration
+
+### Group Photo Example
+| Original | Processed (Square) | 
+|----------|-------------------|
+| ![Group Photo Original](examples/group_original.jpg) | ![Group Photo Square](examples/group_square.jpg) 
+
+### Portrait Example
+| Original | Processed (4:3) |
+|----------|-------------------|
+| ![Portrait Original](examples/group_portrait.jpg) | ![Portrait 4:3](examples/group_43.jpg) |
+
+### Face Detection Visualization
+For the curious, you can turn on visualization of the detected faces by passing `--show-faces`
+![Landscape Original](examples/group_show_faces.jpg)
+
+> Note: The example images above demonstrate how Smart Crop handles different scenarios:
+> - Group photos: Centers on the average position of all faces
+> - Portraits: Centers on the main subject
+> - Landscapes: Maintains composition when no faces are present
 
 ## Requirements
 
@@ -34,12 +56,13 @@ A Python tool that intelligently crops photos to any aspect ratio while preservi
 
 ## Usage
 
-Basic usage:
+### Basic Batch Processing
+Simply place your photos in the input directory and run:
 ```bash
 python crop.py
 ```
 
-### Command Line Options
+### Advanced Batch Processing Options
 
 - `--input-dir`: Input directory containing images (default: "photos")
 - `--output-dir`: Output directory for processed images (default: "output")
@@ -48,19 +71,19 @@ python crop.py
 - `--workers`: Number of worker processes (default: number of CPU cores)
 - `--overwrite`: Overwrite existing files in output directory
 
-### Examples
+### Batch Processing Examples
 
-Process images with face detection visualization:
+Process all images with face detection visualization:
 ```bash
 python crop.py --show-faces
 ```
 
-Process images with custom aspect ratio:
+Process all images with custom aspect ratio:
 ```bash
 python crop.py --ratio 16:9
 ```
 
-Process images with all options:
+Process all images with all options:
 ```bash
 python crop.py --input-dir my_photos --output-dir processed_photos --ratio 16:9 --show-faces --workers 4 --overwrite
 ```
@@ -86,11 +109,13 @@ This intelligent centering ensures that:
 - Portraits are properly centered on the subject
 - Landscape photos maintain their composition when no faces are present
 
-### Performance Optimization
+### Batch Processing Optimization
 
+- Multi-processing support for parallel batch processing
 - Images are automatically resized for faster face detection while maintaining accuracy
-- Multi-processing support for batch processing
-- Skips existing files by default to save time
+- Skips existing files by default to save time on large batches
+- Progress bar shows batch processing status
+- Efficient memory usage for large photo collections
 
 ## Directory Structure
 
@@ -100,14 +125,16 @@ This intelligent centering ensures that:
 │   └── *.jpg        # Your photos to process
 ├── output/          # Output directory (default)
 │   └── *.jpg        # Processed photos
+├── examples/        # Example images for documentation
 ├── crop.py
 └── requirements.txt
 ```
 
 ## Notes
 
-- The script processes JPG and PNG files
+- The script processes JPG and PNG files in batch
 - Face detection confidence threshold is set to 95% to reduce false positives
 - Images are automatically resized for faster face detection while maintaining accuracy
 - EXIF orientation data is preserved in the output images
-- Existing files are skipped by default unless `--overwrite` is used 
+- Existing files are skipped by default unless `--overwrite` is used
+- Perfect for processing large collections of photos efficiently 
