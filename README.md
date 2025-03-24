@@ -14,26 +14,23 @@ A Python tool for batch processing photos that intelligently crops them to any a
 - 🔍 Visual face detection debugging
 - ⏱️ Skip existing files to save time
 
-## Visual Demonstration
+## Smart cropping examples
 
-### Group Photo Example
-| Original | Processed (Square) | 
-|----------|-------------------|
+### Landscape Example
+The orininal photo was cropped to a square, by automatically detecting and centering on the faces and cropping out the left part of the image.
+| Original | Cropped to square (1:1) | 
+|----------|-------------------------|
 | ![Group Photo Original](examples/group_original.jpg) | ![Group Photo Square](examples/group_square.jpg) 
 
 ### Portrait Example
-| Original | Processed (4:3) |
+The orininal photo was cropped to 16:9 ratio (using `--ratio 16:9`), by automatically detecting and centering on the faces and cropping out most of the top part of the image and also some cropping at the bottom.
+| Original | Cropped to 16:9 |
 |----------|-------------------|
-| ![Portrait Original](examples/group_portrait.jpg) | ![Portrait 4:3](examples/group_43.jpg) |
+| ![Portrait Original](examples/group_portrait.jpg) | ![Cropped 4:3](examples/group_16_9.jpg) |
 
 ### Face Detection Visualization
 For the curious, you can turn on visualization of the detected faces by passing `--show-faces`
 ![Landscape Original](examples/group_show_faces.jpg)
-
-> Note: The example images above demonstrate how Smart Crop handles different scenarios:
-> - Group photos: Centers on the average position of all faces
-> - Portraits: Centers on the main subject
-> - Landscapes: Maintains composition when no faces are present
 
 ## Requirements
 
